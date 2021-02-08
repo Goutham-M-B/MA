@@ -1,0 +1,514 @@
+MainActivity.java
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import java.util.HashSet;
+public class MainActivity extends AppCompatActivity {
+double val1,val2;
+boolean add,sub,div,mul;
+    TextView result;
+    Button numone;
+    Button ntwo;
+    Button nthree;
+    Button nfour;
+    Button nfive;
+    Button nsix;
+    Button nseven;
+    Button neight;
+    Button nnine;
+    Button nzero;
+    Button bdot;
+    Button badd;
+    Button bsub;
+    Button bmul;
+    Button bdiv;
+    Button bequ;
+    Button bclear;
+    @Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+result = (TextView) findViewById(R.id.txtScreen);
+numone=(Button)findViewById(R.id.one);
+ntwo=(Button)findViewById(R.id.two);
+nthree=(Button)findViewById(R.id.thr);
+nfour=(Button)findViewById(R.id.fou);
+nfive=(Button)findViewById(R.id.fiv);
+nsix=(Button)findViewById(R.id.six);
+nseven=(Button)findViewById(R.id.sev);
+neight=(Button)findViewById(R.id.eig);
+nnine=(Button)findViewById(R.id.nin);
+nzero=(Button)findViewById(R.id.zer);
+bdot=(Button)findViewById(R.id.dot);
+badd=(Button)findViewById(R.id.addbut);
+bsub=(Button)findViewById(R.id.subbut);
+bmul=(Button)findViewById(R.id.mulbut);
+bdiv=(Button)findViewById(R.id.divbut);
+bequ=(Button)findViewById(R.id.equbut);
+bclear=(Button)findViewById(R.id.clearbut);
+
+
+numone.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+result.setText(result.getText() + "1");
+            }
+        });
+ntwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+result.setText(result.getText() + "2");
+            }
+        });
+nthree.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+result.setText(result.getText() + "3");
+            }
+        });
+nfour.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+result.setText(result.getText() + "4");
+            }
+        });
+nfive.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+result.setText(result.getText() + "5");
+            }
+        });
+nsix.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+result.setText(result.getText() + "6");
+            }
+        });
+nseven.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+result.setText(result.getText() + "7");
+            }
+        });
+neight.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+result.setText(result.getText() + "8");
+            }
+        });
+nnine.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+result.setText(result.getText() + "9");
+            }
+        });
+nzero.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+result.setText(result.getText() + "0");
+            }
+        });
+bdot.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+result.setText(result.getText() + ".");
+            }
+        });
+badd.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+                val1=Double.parseDouble(result.getText()+"");
+add=true;
+result.setText(null);
+            }
+        });
+bsub.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+                val1=Double.parseDouble(result.getText()+"");
+sub=true;
+result.setText(null);
+            }
+        });
+bdiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+                val1=Double.parseDouble(result.getText()+"");
+div=true;
+result.setText(null);
+            }
+        });
+bmul.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+                val1=Double.parseDouble(result.getText()+"");
+mul=true;
+result.setText(null);
+            }
+        });
+bequ.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+                val2=Double.parseDouble(result.getText()+"");
+if (add==true) {
+result.setText(val1+val2+"");
+add=false;
+                }
+if (sub==true) {
+result.setText(val1-val2+"");
+sub=false;
+                }
+if (mul==true) {
+result.setText(val1*val2+"");
+mul=false;
+                }
+if (div==true) {
+result.setText(val1/val2+"");
+div=false;
+                }
+            }
+        });
+bclear.setOnClickListener(new View.OnClickListener() {
+            @Override
+public void onClick(View view) {
+result.setText("");
+            }
+        });
+    }
+}
+
+Activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout 
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity">
+
+<TextView
+android:id="@+id/txtScreen"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_alignParentTop="true"
+android:layout_centerHorizontal="true"
+android:gravity="right|center_vertical"
+android:maxLength="16"
+android:padding="20dp"
+android:text=""
+android:textAppearance="?android:attr/textAppearanceLarge"
+android:textSize="25sp"
+android:typeface="serif"
+app:layout_constraintEnd_toEndOf="parent" />
+
+<Button
+android:id="@+id/clearbut"
+android:layout_width="69dp"
+android:layout_height="53dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="AC"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.0"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.33" />
+
+<Button
+android:id="@+id/divbut"
+android:layout_width="69dp"
+android:layout_height="53dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="/"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.336"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.328" />
+
+<Button
+android:id="@+id/mulbut"
+android:layout_width="69dp"
+android:layout_height="53dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="*"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.668"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.328" />
+
+<Button
+android:id="@+id/subbut"
+android:layout_width="69dp"
+android:layout_height="53dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="-"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="1.0"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.325" />
+
+<Button
+android:id="@+id/sev"
+android:layout_width="69dp"
+android:layout_height="53dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="7"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.0"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.473" />
+
+<Button
+android:id="@+id/eig"
+android:layout_width="69dp"
+android:layout_height="53dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="8"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.336"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.468" />
+
+<Button
+android:id="@+id/nin"
+android:layout_width="69dp"
+android:layout_height="53dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="9"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.668"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.468" />
+
+<Button
+android:id="@+id/fou"
+android:layout_width="69dp"
+android:layout_height="53dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="4"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.0"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.614" />
+
+<Button
+android:id="@+id/fiv"
+android:layout_width="69dp"
+android:layout_height="53dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="5"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.336"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.611" />
+
+<Button
+android:id="@+id/six"
+android:layout_width="69dp"
+android:layout_height="53dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="6"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.668"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.611" />
+
+<Button
+android:id="@+id/one"
+android:layout_width="69dp"
+android:layout_height="53dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="1"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.0"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.757" />
+
+<Button
+android:id="@+id/two"
+android:layout_width="69dp"
+android:layout_height="53dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="2"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.336"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.755" />
+
+<Button
+android:id="@+id/thr"
+android:layout_width="69dp"
+android:layout_height="53dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="3"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.668"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.752" />
+
+<Button
+android:id="@+id/zer"
+android:layout_width="110dp"
+android:layout_height="53dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="0"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.0"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.89" />
+
+<Button
+android:id="@+id/dot"
+android:layout_width="112dp"
+android:layout_height="52dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="."
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.597"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.888" />
+
+
+<Button
+android:id="@+id/addbut"
+android:layout_width="69dp"
+android:layout_height="109dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="+"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="1.0"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.548" />
+
+<Button
+android:id="@+id/equbut"
+android:layout_width="69dp"
+android:layout_height="110dp"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginLeft="8dp"
+android:layout_marginRight="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:text="="
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="1.0"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.88" />
+</android.support.constraint.ConstraintLayout>
