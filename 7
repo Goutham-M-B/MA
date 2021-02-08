@@ -1,0 +1,124 @@
+MainActivity.java
+
+import android.location.Location;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+import java.text.DateFormat;
+public class MainActivity extends AppCompatActivity {
+    GoogleApiClient mGoogleApiClient;
+    TextView mTextView;
+    Button mButton;
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+mTextView = (TextView) findViewById(R.id.textView);
+mButton = (Button) findViewById(R.id.button);
+mButton.setEnabled(false);
+        setupGoogleApiClient();
+    }
+    GoogleApiClient.ConnectionCallbacks mConnectionCallbacks =
+new GoogleApiClient.ConnectionCallbacks() {
+@Override
+public void onConnected(Bundle bundle) {
+mButton.setEnabled(true);
+                }
+@Override
+public void onConnectionSuspended(int i) {}
+            };
+    GoogleApiClient.OnConnectionFailedListener
+mOnConnectionFailedListener = new
+GoogleApiClient.OnConnectionFailedListener() {
+@Override
+public void onConnectionFailed(ConnectionResult
+                                                       connectionResult) {
+                    Toast.makeText(MainActivity.this,
+                            connectionResult.toString(),
+                            Toast.LENGTH_LONG).show();
+                }
+            };
+protected synchronized void setupGoogleApiClient()
+    {
+mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(mConnectionCallbacks)
+                .addOnConnectionFailedListener(mOnConnectionFailedListener)
+                .addApi(LocationServices.API)
+                .build();
+mGoogleApiClient.connect();
+    }
+
+public void getLocation(View view) {
+try {
+            Location lastLocation =
+                    LocationServices.FusedLocationApi.
+                            getLastLocation(
+mGoogleApiClient);
+if (lastLocation != null) {
+mTextView.setText(
+                        DateFormat.getTimeInstance().format(
+                                lastLocation.getTime()) + "\n" +
+"Latitude="+lastLocation.getLatitude() +
+"\n" + "Longitude=" +
+                                lastLocation.getLongitude());
+            } else {
+                Toast.makeText(MainActivity.this, "null",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+catch (SecurityException e) {e.printStackTrace();}
+    }
+@Override
+protected void onStart() {
+super.onStart();
+// Connect the client.
+mGoogleApiClient.connect();
+    }
+}
+
+Activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity">
+
+<TextView
+android:id="@+id/textView"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content" />
+
+<Button
+android:id="@+id/button"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_centerInParent="true"
+android:layout_marginBottom="8dp"
+android:layout_marginEnd="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp"
+android:onClick="getLocation"
+android:text="Get Location"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.747" />
+</android.support.constraint.ConstraintLayout>
+
+Manifest file
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest package="com.example.sowmya.labprogram7map" xmlns:android="http://schemas.android.com/apk/res/android">
+<uses-permissionandroid:name="android.permission.ACCESS_COARSE_LOCATION"/>
+<applicationandroid:theme="@style/AppTheme" android:supportsRtl="true" android:roundIcon="@mipmap/ic_launcher_round" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:allowBackup="true">
+<activityandroid:name=".MainActivity"><intent-filter><actionandroid:name="android.intent.action.MAIN"/><categoryandroid:name="android.intent.category.LAUNCHER"/></intent-filter>
+</activity>
+</application>
+</manifest>
