@@ -1,0 +1,144 @@
+Triangle.java
+
+package com.example.sowmya.lab4;
+import android.opengl.GLES20;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+
+public class Triangle {
+private final String vertexShaderCode =
+"attribute vec4 vPosition;" +
+"void main() {" +
+" gl_Position = vPosition;" +
+"}";
+private final String fragmentShaderCode =
+"precision mediump float;" +
+"uniform vec4 vColor;" +
+"void main() {" +
+" gl_FragColor = vColor;" +
+"}";
+final int COORDS_PER_VERTEX = 3;
+float triangleCoords[] = {
+0.0f, 0.66f, 0.0f,
+            -0.5f, -0.33f, 0.0f,
+0.5f, -0.33f, 0.0f
+};
+float color[] = { 0.63f, 0.76f, 0.22f, 1.0f };
+private final int mProgram;
+private FloatBuffer vertexBuffer;
+private int mPositionHandle;
+private int mColorHandle;
+private final int vertexCount = triangleCoords.length/COORDS_PER_VERTEX;
+private final int vertexStride = COORDS_PER_VERTEX * 4;
+public int loadShader(int type, String shaderCode){
+int shader = GLES20.glCreateShader(type);
+        GLES20.glShaderSource(shader, shaderCode);
+        GLES20.glCompileShader(shader);
+return shader;
+    }
+public Triangle() {
+int vertexShader = loadShader(
+                GLES20.GL_VERTEX_SHADER,
+vertexShaderCode);
+int fragmentShader = loadShader(
+                GLES20.GL_FRAGMENT_SHADER,
+fragmentShaderCode);
+mProgram = GLES20.glCreateProgram();
+        GLES20.glAttachShader(mProgram, vertexShader);
+        GLES20.glAttachShader(mProgram, fragmentShader);
+        GLES20.glLinkProgram(mProgram);
+        ByteBuffer bb = ByteBuffer.allocateDirect(
+triangleCoords.length * 4);
+        bb.order(ByteOrder.nativeOrder());
+vertexBuffer = bb.asFloatBuffer();
+vertexBuffer.put(triangleCoords);
+vertexBuffer.position(0);
+    }
+public void draw() {
+        GLES20.glUseProgram(mProgram);
+mPositionHandle = GLES20.glGetAttribLocation(mProgram,
+"vPosition");
+        GLES20.glEnableVertexAttribArray(mPositionHandle);
+        GLES20.glVertexAttribPointer(mPositionHandle,
+COORDS_PER_VERTEX,
+                GLES20.GL_FLOAT, false,
+vertexStride, vertexBuffer);
+mColorHandle = GLES20.glGetUniformLocation(mProgram,
+"vColor");
+        GLES20.glUniform4fv(mColorHandle, 1, color, 0);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
+        GLES20.glDisableVertexAttribArray(mPositionHandle);
+    }
+}
+
+
+MainActivity.java
+package com.example.sowmya.lab4;
+
+import android.content.Context;
+import android.opengl.EGLConfig;
+import android.opengl.GLES20;
+import android.opengl.GLSurfaceView;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+import javax.microedition.khronos.opengles.GL10;
+
+class CustomGLSurfaceView extends GLSurfaceView {
+private final GLRenderer mGLRenderer;
+public CustomGLSurfaceView(Context context){
+super(context);
+        setEGLContextClientVersion(2);
+mGLRenderer = new GLRenderer();
+        setRenderer(mGLRenderer);
+    }
+class GLRenderer implements GLSurfaceView.Renderer {
+private Triangle mTriangle;
+
+public void onSurfaceCreated(GL10 unused, EGLConfig config) {
+            GLES20.glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+        }
+public void onDrawFrame(GL10 unused) {
+            GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+mTriangle.draw();
+
+        }
+
+@Override
+public void onSurfaceCreated(GL10 gl10, javax.microedition.khronos.egl.EGLConfig eglConfig) {
+mTriangle = new Triangle();
+        }
+
+public void onSurfaceChanged(GL10 unused, int width, int
+height) {
+            GLES20.glViewport(0, 0, width, height);
+        }
+    }
+}
+public class MainActivity extends AppCompatActivity {
+private GLSurfaceView mGLSurfaceView;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+mGLSurfaceView = new CustomGLSurfaceView(this);
+        setContentView(mGLSurfaceView);
+    }
+}
+
+activity_main.xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<android.support.constraint.ConstraintLayout tools:context=".MainActivity" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="19dp"
+android:text="Hello World!"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintLeft_toLeftOf="parent"
+app:layout_constraintRight_toRightOf="parent"
+app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
