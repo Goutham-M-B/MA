@@ -1,0 +1,48 @@
+activity_main.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<android.support.constraint.ConstraintLayout tools:context=".MainActivity" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+<TextView android:layout_width="wrap_content"
+android:layout_height="19dp"
+android:text="Hello World!"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintLeft_toLeftOf="parent"
+app:layout_constraintRight_toRightOf="parent"
+app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
+
+MainActivity.java
+
+package Draw2.pack;
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.os.Bundle;
+import android.view.View;
+ 
+public class Draw2 extends Activity {
+ 
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(new myView(this));
+  }
+ 
+  private class myView extends View{
+ 
+      public myView(Context context) {
+          super(context);
+      }
+ 
+      @Override
+      protected void onDraw(Canvas canvas) {
+ 
+          Paint myPaint = new Paint();
+          myPaint.setColor(Color.GREEN);
+          myPaint.setStyle(Paint.Style.STROKE);
+          myPaint.setStrokeWidth(3);
+          canvas.drawRect(10, 10, 100, 100, myPaint);
+      }
+  }
+}
